@@ -15,29 +15,53 @@
 #include "ft_printf/ft_printf.h"
 #include "libft/libft.h"
 
+char	*alt_strjoin(char const *s1, char const *s2)
+{
+	char	*ret;
+	int		c1;
+	int		c2;
+	int		c3;
+
+	c1 = 0;
+	c2 = 0;
+	c3 = 0;
+	if (!s1 && !s2)
+		return (NULL);
+	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!ret)
+		return (NULL);
+	while (s1[c1] != '\0')
+	{
+		ret[c3] = s1[c1];
+		c1++;
+		c3++;
+	}
+	while (s2[c2] != '\0')
+		ret[c3++] = s2[c2++];
+	ret[c3] = '\0';
+	return (ret);
+}
+
 void	bit_handler(int signal)
 {
-	static char	i[1];
+	static char	i;
 	static int	bit;
-	//static int	count;
-	static char	*message;
-	i[1] = '\0';
+	static char	*message = NULL;
+	i = '\0';
 	if (signal == SIGUSR1)
-		i[0] |= (0x01 << bit);
+		i |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{	
-		//message[count++] = i;
-		message = ft_strjoin(message, i);
-		if (i[0] == '\0')
+		message = alt_strjoin(message, &i);
+		if (i == '\0')
 		{
 			ft_printf("%s", message);
 			ft_printf("%c", '\n');
-			//memset(message, 0, sizeof(message));
-			//count = 0;
+			memset(message, 0, ft_strlen(message));
 		}
 		bit = 0;
-		i[0] = 0;
+		i = 0;
 	}
 }
 
