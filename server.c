@@ -13,29 +13,32 @@
 #include <string.h>
 #include <signal.h>
 #include "ft_printf/ft_printf.h"
+#include "libft/libft.h"
 
 void	bit_handler(int signal)
 {
-	static char	i;
+	static char	i[1];
 	static int	bit;
-	static int	count;
-	static char	message[1024];
+	//static int	count;
+	static char	*message;
 
+	i[1] = '\0';
 	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
+		i[0] |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		message[count++] = i;
-		if (i == '\0')
+		//message[count++] = i;
+		ft_strjoin(message, i);
+		if (i[0] == '\0')
 		{
 			ft_printf("%s", message);
 			ft_printf("%c", '\n');
 			memset(message, 0, sizeof(message));
-			count = 0;
+			//count = 0;
 		}
 		bit = 0;
-		i = 0;
+		i[0] = 0;
 	}
 }
 
