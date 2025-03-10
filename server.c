@@ -21,20 +21,19 @@ void	bit_handler(int signal)
 	static int	bit;
 	//static int	count;
 	static char	*message;
-
 	i[1] = '\0';
 	if (signal == SIGUSR1)
 		i[0] |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
-	{
+	{	
 		//message[count++] = i;
-		ft_strjoin(message, i);
+		message = ft_strjoin(message, i);
 		if (i[0] == '\0')
 		{
 			ft_printf("%s", message);
 			ft_printf("%c", '\n');
-			memset(message, 0, sizeof(message));
+			//memset(message, 0, sizeof(message));
 			//count = 0;
 		}
 		bit = 0;

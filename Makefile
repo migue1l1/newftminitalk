@@ -7,8 +7,9 @@ PRINTF = ft_printf
 
 all:
 	@make -C $(PRINTF)  # Compile ft_printf first
-	@gcc $(CFLAGS) server.c $(PRINTF)/libftprintf.a -o $(SERVER)  # Link the library
-	@gcc $(CFLAGS) client.c $(PRINTF)/libftprintf.a -o $(CLIENT)  # Link the library
+	@make -C libft  # Compile ft_printf first
+	@gcc $(CFLAGS) server.c $(PRINTF)/libftprintf.a libft/libft.a -o $(SERVER)  # Link the library
+	@gcc $(CFLAGS) client.c $(PRINTF)/libftprintf.a libft/libft.a -o $(CLIENT)  # Link the library
 	@echo "Server And Client Are Ready!"
 
 clean:
