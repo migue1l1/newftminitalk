@@ -64,7 +64,7 @@ void	send_bit(int pid, char i)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(300);
+		usleep(100);
 		bit++;
 	}
 }
